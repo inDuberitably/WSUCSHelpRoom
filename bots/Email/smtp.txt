@@ -1,0 +1,5 @@
+smtp.gmail.com
+587
+email without domain
+password
+login
