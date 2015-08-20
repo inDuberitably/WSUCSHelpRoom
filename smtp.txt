@@ -1,0 +1,5 @@
+smtp.gmail.com
+587
+youremail@gmail.com
+yourpassword
+login
