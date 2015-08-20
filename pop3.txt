@@ -1,4 +1,4 @@
 pop.gmail.com
 995
-youremailname
+youremailname without the '@'
 yourpassword
