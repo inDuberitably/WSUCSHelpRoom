@@ -1,0 +1,4 @@
+pop.gmail.com
+995
+youremailname
+yourpassword
