@@ -166,7 +166,7 @@ Responder can cover a portion of the shift.
         elsif partial_content.length >= 2
           send_mail(email,false)
         else
- 			puts "What the fuck dude he fucked up big time."
+ 			puts "What the family dude he messed up big time."
         end
 
 =begin
