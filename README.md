@@ -10,7 +10,7 @@ The goal of this repo is to build and maintain services for Wright State's Compu
 #EmailBot
 The email bot manages requests for time off.
 
-To set it up configure the email service you'll be using following the wiki from https://github.com/mikel/mail/wiki/Sending-email-via-Office365
+To set it up, configure the email service you'll be using following the wiki from https://github.com/mikel/mail/wiki/Sending-email-via-Office365
 
 Setup the **pop3.txt** and **smtp.txt** file with the relevant information from there. I haven't tested whether or not the login part in smtp will break with other services like Office365. It's probably best to leave it there.
 
