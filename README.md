@@ -26,8 +26,14 @@ emailname@domain.com, anothercoolemail@someotherdomain.com, howsmytyping@cooldom
 **subjects.txt** will only read emails with the list of these subject headers
 Both of phrases and subjects can be modified freely.
 
+To run, simply run from the command line 
+```ruby```
+ruby EmailBot.rb
+````
 Once it's all said in done, the script looks like this.
 
 ![alt text](http://i.imgur.com/82Qg4Rd.png "First message")
+
 ![alt text](http://i.imgur.com/SuPmtk1.png "Someone replying, being rewarded that time")
+
 ![alt text](http://i.imgur.com/3tssmb2.png "Someone replying to only part of the time")
