@@ -1,0 +1,1 @@
+coolemail@domain.com, eachEmailCommaDelimited@domain.com
