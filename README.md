@@ -41,7 +41,8 @@ emailname@domain.com, anothercoolemail@someotherdomain.com, howsmytyping@cooldom
 **phrases.txt** will display all the key words that award the entire shift
 
 **subjects.txt** will only read emails with the list of these subject headers
-Both of phrases and subjects can be modified freely.
+
+Both phrases and subjects can be modified freely.
 
 To run, simply run from the command line 
 ```ruby```
