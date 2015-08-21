@@ -2,3 +2,4 @@ pop.gmail.com
 995
 email without the '@'
 password
+fullemail@domain.com
