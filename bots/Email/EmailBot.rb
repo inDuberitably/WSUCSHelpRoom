@@ -7,7 +7,7 @@ class EmailBot
     @@display_phrases = ""
     a = ""
     list = File.read('email_list.txt').scan(/[^\s+]+/).each {|y| a<<y}
-    config_pop3 = File.read('pop3.txt').split("\n")
+    @@config_pop3 = File.read('pop3.txt').split("\n")
     config_smtp = File.read('smtp.txt').split("\n")
     @@address_book = Mail::AddressList.new(a)
 
@@ -20,10 +20,10 @@ class EmailBot
     @@time_slot_hsh = {}
     @@i = 0
     @@pop=Mail.defaults do
-      retriever_method :pop3, :address    => config_pop3[0],
-        :port       => config_pop3[1],
-        :user_name  => config_pop3[2],
-        :password   => config_pop3[3],
+      retriever_method :pop3, :address    => @@config_pop3[0],
+        :port       => @@config_pop3[1],
+        :user_name  => @@config_pop3[2],
+        :password   => @@config_pop3[3],
         :enable_ssl => true
     end
 
@@ -32,13 +32,12 @@ class EmailBot
                 :user_name            => config_smtp[2],
                 :password             => config_smtp[3],
                 :authentication       => 'plain', #'login' for Office365
-                :encryption => 'tls', 
+                :encryption => 'tls',
                 :enable_starttls_auto => true  }
     Mail.defaults do
       delivery_method :smtp, options
     end
   end
-
   def check_inbox()
     puts @@i
     @@i += 1
@@ -46,6 +45,7 @@ class EmailBot
     @@time_slot_hsh.values.select{|request| request.completed == false }.each do |requests|
       puts requests
     end
+
     hours =  inbox()
     if hours.empty?
       puts "Process is asleep"
@@ -85,7 +85,7 @@ Is this a response or new request?
 
         If you can cover the ENTIRE shift respond with one of the following phrases: #{@@display_phrases}
 
-        If you can cover a portion of the shift respond using: [ ] and enclose the times are able to cover this shift)
+      If you can cover a portion of the shift respond using: [ ] and enclose the times are able to cover this shift)
 
       store_msg(requested_time.from,subj,msg,hours,false)
     elsif @@time_slot_hsh.has_key? requested_time.subject.gsub(/[^(\d+(...)+)]/,"") and flag == false
@@ -101,7 +101,7 @@ Is this a response or new request?
     puts "\asending mail"
     @@address_book.addresses.each do |person|
       mail = Mail.deliver do
-        from    'izzy.dome@gmail.com'
+        from    @@config_pop3[4]
         to       person
         subject  subj
         text_part do
@@ -148,7 +148,7 @@ examples: "Hours Available as of #{Time.now}"
 =end
       elsif @@time_slot_hsh.has_key? date_key and @@time_slot_hsh.fetch(date_key).completed == false
         puts "I'm like hey what's up hello\a"
-        partial_content = content.scan(/\[(.*?)\]/).flatten 
+        partial_content = content.scan(/\[(.*?)\]/).flatten
         content=content.scan(/^[^\:]+\n/).each{|y| y.strip!}.each{|y| y.gsub!(/\s+/, '_')}
         content=@@entire_phrases&content
 
@@ -166,7 +166,7 @@ Responder can cover a portion of the shift.
         elsif partial_content.length >= 2
           send_mail(email,false)
         else
- 			puts "What the family dude he messed up big time."
+          puts "What the family dude he funked up big time."
         end
 
 =begin
