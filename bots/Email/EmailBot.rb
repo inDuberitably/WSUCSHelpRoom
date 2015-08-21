@@ -85,7 +85,7 @@ Is this a response or new request?
 
         If you can cover the ENTIRE shift respond with one of the following phrases: #{@@display_phrases}
 
-      If you can cover a portion of the shift respond using: [ ] and enclose the times are able to cover this shift)
+        If you can cover a portion of the shift respond using: [ ] and enclose the times are able to cover this shift)
 
       store_msg(requested_time.from,subj,msg,hours,false)
     elsif @@time_slot_hsh.has_key? requested_time.subject.gsub(/[^(\d+(...)+)]/,"") and flag == false
