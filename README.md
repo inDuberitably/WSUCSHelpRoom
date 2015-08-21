@@ -1,4 +1,4 @@
-# WSUCSHelpRoom
+# WSU CS HelpRoom
 The goal of this repo is to build and maintain services for Wright State's Computer Science Help Room. 
 
 #Admin Tools
