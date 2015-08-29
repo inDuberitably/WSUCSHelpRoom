@@ -10,7 +10,8 @@ The goal of this repo is to build and maintain services for Wright State's Compu
 #EmailBot
 The email bot manages requests for time off.
 
-First, make sure all the files are in the same directory.
+First, make sure all the files are in the same directory and you have a dedicated email service you would like to use to handle requests. I've only gotten to test Gmail so far. Google requires you to authenticate, so as a temporary fix make sure the gmail account you're using is a dummy and go here https://www.google.com/settings/security/lesssecureapps
+
 * EmailBot.rb	
 
 * EmailRequestForm.rb
