@@ -131,51 +131,50 @@ Reads email responses
 key phrases to select mail with as to prevent spam
 =end
     hours = []
-    @@pop.all.each do |email|
+    mail_box = @@pop.all.select{|x| !x.nil?}
+    mail_box.each do |email|
 =begin
 Checks for NEW time off requests
 examples: "I need time off for today", "Hours for next week", "I need someone to cover my shift"
 =end
-      if !email.nil?
-        header = @@cases & email.subject.downcase.scan(/\w+/).each {|word| word.strip!}
-        date_key =  email.subject.gsub(/[^(\d+(...)+)]/,"")
-        content = email.body.parts[0].body.decoded
-        if header.length >= 1 and !@@time_slot_hsh.has_key? date_key
-          hours << email
-          puts "You've got mail with subject headers"
+      header = @@cases & email.subject.downcase.scan(/\w+/).each {|word| word.strip!}
+      date_key =  email.subject.gsub(/[^(\d+(...)+)]/,"")
+      content = email.body.parts[0].body.decoded
+      if header.length >= 1 and !@@time_slot_hsh.has_key? date_key
+        hours << email
+        puts "You've got mail with subject headers"
 =begin
 Checks for replies to OLD requests
 examples: "Hours Available as of #{Time.now}"
 =end
-        elsif @@time_slot_hsh.has_key? date_key and @@time_slot_hsh.fetch(date_key).completed == false
-          puts "I'm like hey what's up hello\a"
-          partial_content = content.scan(/\[(.*?)\]/).flatten
-          content=content.scan(/^[^\:]+\n/).each{|y| y.strip!}.each{|y| y.gsub!(/\s+/, '_')}
-          content=@@entire_phrases&content
+      elsif @@time_slot_hsh.has_key? date_key and @@time_slot_hsh.fetch(date_key).completed == false
+        puts "I'm like hey what's up hello\a"
+        partial_content = content.scan(/\[(.*?)\]/).flatten
+        content=content.scan(/^[^\:]+\n/).each{|y| y.strip!}.each{|y| y.gsub!(/\s+/, '_')}
+        content=@@entire_phrases&content
 
 =begin
 Responder can cover all hours
 =end
 
-          if !content.empty? and @@entire_phrases.any?{|phrase| phrase.include? content[0]}
-            puts "Awarding hours..."
-            @@time_slot_hsh.fetch(date_key).completed = true
-            self.send_mail(email,true)
+        if !content.empty? and @@entire_phrases.any?{|phrase| phrase.include? content[0]}
+          puts "Awarding hours..."
+          @@time_slot_hsh.fetch(date_key).completed = true
+          self.send_mail(email,true)
 =begin
 Responder can cover a portion of the shift.
 =end
-          elsif partial_content.length >= 2
-            send_mail(email,false)
-          else
-            puts "What the family dude he funked up big time."
-          end
+        elsif partial_content.length >= 2
+          send_mail(email,false)
+        else
+          puts "What the family dude he funked up big time."
+        end
 
 =begin
 An email was sent, but didn't meet the requirements
 =end        
-        else
-          puts "I'm in the kitchen cooking pies with my baby."
-        end
+      else
+        puts "I'm in the kitchen cooking pies with my baby."
       end
     end
     return hours
