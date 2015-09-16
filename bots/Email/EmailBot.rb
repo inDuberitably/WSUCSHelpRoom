@@ -93,9 +93,23 @@ meant for one user to manage internals
 =begin
 Grabs time slots  
 =end
+
     time_slot = msg.scan(/((\d+:)(..)|\d+)/)
     hsh_slot= Hash[time_slot.map {|key, value| [key, value]}]
-    return hsh_slot.keys.join(" - ")
+    hours = hsh_slot.keys.join(" - ")
+    dash_count = hours.chars.count "-"
+    i = 0
+    while i <=hours.chars.length
+      puts  "#{hours.chars[i]}"
+      if hours.chars[i] == "-"
+        if  dash_count % 2 == 0
+          hours[i] = "&"
+        end
+        dash_count -= 1
+      end
+      i+=1
+    end
+    return hours
   end
 =begin
 Writes response to a given request
